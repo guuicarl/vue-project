@@ -24,7 +24,7 @@
 
     <v-row>
         <v-col cols="2">
-            <v-text-field label="CEP" @blur="getCEP" type="number" v-model="cep"> </v-text-field>
+            <v-text-field label="CEP" @blur="getCEP"  v-model="cep" hide-spin-buttons v-mask="['#####-###']"> </v-text-field>
         </v-col>
         <v-col cols="5">
             <v-text-field label="Cidade" v-model="cidade"></v-text-field>
@@ -114,7 +114,8 @@
         this.$refs.form.resetValidation()
       },
       async getCEP(){
-        if(this.cep.length ===8){
+        const cep = this.cep.replace("-", "");
+        if(cep.length === 8){
           try {
             const response = await fetch(
                 `https://viacep.com.br/ws/${this.cep}/json/`
